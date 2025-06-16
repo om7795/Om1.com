@@ -231,53 +231,26 @@
         <!-- Contact Section -->
         <div class="contactSection" id="Contact">
             <h2 class="section-title">Contact</h2>
-            <div class="contact-bg">
-                <div class="contact-container">
-                    <div class="contact-box">
-                        <div class="contact-header">
-                            <div class="header-left">
-                                <div class="header-btn close"></div>
-                                <div class="header-btn maximize"></div>
-                                <div class="header-btn minimize"></div>
-                            </div>
-                            <div class="header-right">
-                                <div class="header-dot"></div>
-                                <div class="header-dot"></div>
-                                <div class="header-dot"></div>
-                            </div>
-                        </div>
-                        <div class="contact-body">
-                            <div class="contact-section left">
-                                <div class="contact-title">
-                                    <span>CONTACT</span>
-                                    <span>US</span>
-                                </div>
-                                <div class="contact-info">CONTACT INFO : +91 0123456789</div>
-                            </div>
-                            <div class="contact-section">
-                                <div class="contact-form">
-                                    <div class="form-group">
-                                        <input class="form-input" placeholder="NAME" value="OM PATEL" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-input" placeholder="EMAIL" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-input" placeholder="CONTACT NO" />
-                                    </div>
-                                    <div class="form-group message">
-                                        <input class="form-input" placeholder="MESSAGE" />
-                                    </div>
-                                    <div class="form-group buttons">
-                                        <button class="form-btn">CANCEL</button>
-                                        <button class="form-btn">SEND</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <form id="contactForm">
+                <div class="contact-form">
+                  <div class="form-group">
+                    <input class="form-input" id="name" name="name" placeholder="NAME" value="OM PATEL" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-input" id="email" name="email" type="email" placeholder="EMAIL" required>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-input" id="contact" name="contact" placeholder="CONTACT NO" required>
+                  </div>
+                  <div class="form-group message">
+                    <input class="form-input" id="message" name="message" placeholder="MESSAGE" required>
+                  </div>
+                  <div class="form-group buttons">
+                    <button class="form-btn" type="reset">CANCEL</button>
+                    <button class="form-btn" type="submit">SEND</button>
+                  </div>
                 </div>
-            </div>
+              </form>              
         </div>
         <footer class="footer">
             <div class="footer-container">
@@ -324,7 +297,43 @@
   const app = firebase.initializeApp(firebaseConfig);
   const analytics = firebase.analytics(app);
 </script>
-</body>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBmxickZQ08gjIW05VzvQk2pVGIrhBaiSY",
+    authDomain: "om-patel-1d2e7.firebaseapp.com",
+    databaseURL: "https://om-patel-1d2e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "om-patel-1d2e7",
+    storageBucket: "om-patel-1d2e7.appspot.com",
+    messagingSenderId: "126551987115",
+    appId: "1:126551987115:web:3d97e38f3e2059e73ff8ee"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  document.getElementById("contactForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const contact = document.getElementById("contact").value;
+    const message = document.getElementById("message").value;
+
+    db.ref("contacts").push({
+      name: name,
+      email: email,
+      contact: contact,
+      message: message
+    });
+
+    alert("Form submitted successfully!");
+    document.getElementById("contactForm").reset();
+  });
+</script>
 
 </body>
 </html
