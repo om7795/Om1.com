@@ -278,62 +278,48 @@
             </div>
         </footer>
     </div>
-    <script src="index.js"></script>
-    <!-- Firebase scripts -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBmxickZQ08gjIW05VzvQk2pVGIrhBaiSY",
-    authDomain: "om-patel-1d2e7.firebaseapp.com",
-    projectId: "om-patel-1d2e7",
-    storageBucket: "om-patel-1d2e7.appspot.com",
-    messagingSenderId: "126551987115",
-    appId: "1:126551987115:web:3d97e38f3e2059e73ff8ee",
-    measurementId: "G-3PT1ZJN74G"
-  };
+    <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js"></script>
 
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const analytics = firebase.analytics(app);
-</script>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBmxickZQ08gjIW05VzvQk2pVGIrhBaiSY",
+      authDomain: "om-patel-1d2e7.firebaseapp.com",
+      databaseURL: "https://om-patel-1d2e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "om-patel-1d2e7",
+      storageBucket: "om-patel-1d2e7.appspot.com",
+      messagingSenderId: "126551987115",
+      appId: "1:126551987115:web:3d97e38f3e2059e73ff8ee",
+      measurementId: "G-3PT1ZJN74G"
+    };
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBmxickZQ08gjIW05VzvQk2pVGIrhBaiSY",
-    authDomain: "om-patel-1d2e7.firebaseapp.com",
-    databaseURL: "https://om-patel-1d2e7-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "om-patel-1d2e7",
-    storageBucket: "om-patel-1d2e7.appspot.com",
-    messagingSenderId: "126551987115",
-    appId: "1:126551987115:web:3d97e38f3e2059e73ff8ee"
-  };
+    const app = firebase.initializeApp(firebaseConfig);
+    const analytics = firebase.analytics(app);
+    const db = firebase.database();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  document.getElementById("contactForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const contact = document.getElementById("contact").value;
+      const message = document.getElementById("message").value;
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    const contact = document.getElementById("contact").value;
-    const message = document.getElementById("message").value;
+      db.ref("contacts").push({
+        name,
+        email,
+        contact,
+        message
+      });
 
-    db.ref("contacts").push({
-      name: name,
-      email: email,
-      contact: contact,
-      message: message
+      alert("Form submitted successfully!");
+      document.getElementById("contactForm").reset();
     });
+  </script>
 
-    alert("Form submitted successfully!");
-    document.getElementById("contactForm").reset();
-  });
-</script>
+    <script src="index.js"></script>
 
 </body>
 </html
